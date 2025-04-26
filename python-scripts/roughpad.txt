@@ -1,0 +1,38 @@
+from netmiko import ConnectHandler
+import re
+
+from device_info import ios_xe1 as device # noqa
+
+# Create a CLI command template
+show_interface_config_temp = "show running-config interface {}"
+
+# Open CLI connection to device
+with ConnectHandler(ip = device["address"],
+                    port = device["ssh_port"],
+                    username = device["username"],
+                    password = device["password"],
+                    device_type = device["device_type"]) as ch:
+
+    # Create desired CLI command and send to device
+    command = show_interface_config_temp.format("Loopback103")
+    interface = ch.send_command(command)
+
+    # Print the raw command output to the screen
+    print(interface)
+
+from netmiko import ConnectHandler
+
+ios_xe_latest = {
+             "address": "sandbox-iosxe-latest-1.cisco.com",
+             "netconf_port": 830,
+             "restconf_port": 443,
+             "ssh_port": 22,
+             "username": "admin",
+             "password": "C1sco12345",
+             "device_type": "cisco_ios"
+          }
+net_connect = ConnectHandler(**ios_xe_latest)
+output = net_connect.send_command ('show ip interface brief')
+print (output)
+
+net_connect.disconnect

@@ -1,0 +1,19 @@
+devices:
+  ios-xe:
+      type: 'router'
+      os: 'cisco_ios'
+      alias: 'uut'
+      credentials:
+        default:
+          username: admin
+          password: C1sco12345
+        enable:
+          password: C1sco12345
+      connections:
+          defaults:
+            class: 'unicon.Unicon'
+          cli:
+              protocol: ssh
+              ip: "sandbox-iosxe-latest-1.cisco.com"
+              port: 22
+  
