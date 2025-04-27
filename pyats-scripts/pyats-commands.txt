@@ -1,0 +1,47 @@
+pyATS CLI commands:
+==================
+pyats version check  #Enlists the modules, libraraties installed along with their version
+
+pyats create testbed interactive --output my_own_testbed.yaml
+
+pyats learn interface ospf platform --testbed-file broken-tb.yaml --output broken_snapshot
+pyats diff working_snapshot broken_snapshot --output diff_snapshot
+
+pyats parse "show interface" --testbed-file working-tb.yaml --output initial_interface_snapshot 
+--device nx-osv-1
+
+pyATS commands from Python Shell
+================================
+
+>>> python
+from genie.testbed import load 
+testbed = load('working-tb.yaml')
+device = testbed.devices['nx-osv-1']
+device.connect()
+output = device.execute('show version')
+
+parsed = device.parse('show version')
+parsed  # Prints the output which is though structured but in not human friendly
+
+from pprint import pprint   # we imported the Prety Print libraty
+pprint(parsed)  # Nows it readable and human friendly
+
+parsed2 = device.parse('show vrf')
+pprint(parsed2)
+parsed2['vrfs']['default']['vrf_id']
+parsed2['vrfs']['default']['vrf_state']
+
+configuration = '''interface ethernet2/1 shutdown'''    # Configuration defined as a string
+output = device.configure(configuration)                # Configure API feature 
+
+configuration = [                       # Configuration can be defined as a List
+    'interface ethernet2/1',
+    'shutdown'
+]
+output = device.configure(configuration)
+
+output = device.learn('interface')      # Learn API feature
+pprint(output.info)
+
+
+

@@ -1,0 +1,5 @@
+Issue while building the feature
+
+Traceback (most recent call last):
+  File "src/genie/cli/commands/learn.py", line 365, in genie.cli.commands.learn.LearnCommand._retrieve_ops
+AttributeError: 'ShowRunningConfig' object has no attribute 'learn'

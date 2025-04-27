@@ -1,5 +1,5 @@
 devices:
-  ios-xe:
+    Cat8000V:
       type: 'router'
       os: 'cisco_ios'
       alias: 'uut'
